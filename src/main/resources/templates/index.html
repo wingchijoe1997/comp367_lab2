@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
     <head>
         <title>Example</title>
     </head>
     <body>
-        <h1>Welcome to COMP367</h1>
+       <h1 th:text="${greeting} + ' Welcome to COMP367'">Welcome to COMP367</h1>
     </body>
 </html>	
