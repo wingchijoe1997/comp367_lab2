@@ -6,7 +6,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'wingchijoe/wingchi_lab3'
         DOCKER_TAG = '2.0'
-        DOCKER_CREDENTIALS_ID = credentials('WingChiDockerHubToken')
+        DOCKER_CREDENTIALS_ID = 'WingChiDockerHubToken'
     }
 
     stages {
