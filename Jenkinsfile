@@ -6,7 +6,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'wingchijoe/wingchi_lab3'
         DOCKER_TAG = '2.0'
-        DOCKER_CREDENTIALS_ID = 'WingChiDockerHubToken'
+        DOCKER_CREDENTIALS_ID = credentials('WingChiDockerHubToken')
     }
 
     stages {
@@ -34,13 +34,13 @@ pipeline {
             }
         }
 
- stage('Docker Login') {
-    steps {
-        withCredentials([string(credentialsId: 'WingChiDockerHubToken', variable: 'DOCKER_HUB_TOKEN')]) {
-            bat "echo %DOCKER_HUB_TOKEN% | docker login -u wingchijoe --password-stdin"
-        }
-    }
-}
+		 stage('Docker Login') {
+		    steps {
+		        script {
+		        	bat 'docker login -u wingchijoe -p ${DOCKER_CREDENTIALS_ID}'
+		        }
+		    }
+		}
         stage('Docker Push') {
             steps {
                 bat "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
