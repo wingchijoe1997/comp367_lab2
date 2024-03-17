@@ -34,14 +34,13 @@ pipeline {
             }
         }
 
-        stage('Docker Login') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                    bat "echo %DOCKER_HUB_PASSWORD% | docker login -u %DOCKER_HUB_USERNAME% --password-stdin"
-                }
-            }
+ stage('Docker Login') {
+    steps {
+        withCredentials([string(credentialsId: 'WingChiDockerHubToken', variable: 'DOCKER_HUB_TOKEN')]) {
+            bat "echo %DOCKER_HUB_TOKEN% | docker login -u wingchijoe --password-stdin"
         }
-
+    }
+}
         stage('Docker Push') {
             steps {
                 bat "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
