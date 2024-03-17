@@ -1,11 +1,15 @@
-# Use an OpenJDK runtime as the base image
-FROM openjdk:17
-
-# Set the working directory inside the container
+FROM maven:3.8.4-jdk-11 AS build
 WORKDIR /app
 
-# Copy the built jar file into the container
-COPY target/Lab3-1.0-SNAPSHOT.jar Lab3.jar
+COPY pom.xml .
+COPY src ./src
 
-# Run the web application on container startup
-CMD ["java", "-jar", "Lab3.jar"]
+RUN mvn clean package
+
+FROM adoptopenjdk:11-jre-hotspot
+
+WORKDIR /app
+COPY --from=build /app/target/lab3.war .
+EXPOSE 8080
+
+CMD ["java", "-jar", "lab3.war"]
