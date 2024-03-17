@@ -5,12 +5,12 @@ pipeline {
     }
     environment {
         DOCKER_IMAGE = 'wingchijoe/wingchi_lab3'
-        DOCKER_TAG = '1.0'
+        DOCKER_TAG = '2.0'
         DOCKER_CREDENTIALS_ID = credentials('WingChiDockerHubToken')
     }
 
     stages {
-        stage('Check out') {
+        stage('Check out') {n
             steps {
                 git url: 'https://github.com/wingchijoe1997/comp367_lab2.git', branch: 'main'
             }
