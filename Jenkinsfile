@@ -27,7 +27,20 @@ pipeline {
                 bat 'mvn jacoco:report'
             }
         }
-
+    stage('Build & Test with JaCoCo') {
+            steps {
+                script {
+       
+                    bat 'mvn clean verify jacoco:report'
+                }
+            }
+        }
+        
+        stage('Publish JaCoCo Report') {
+            steps {
+                jacoco execPattern: '**/target/jacoco.exec', classPattern: '**/classes', sourcePattern: '**/src/main/java'
+            }
+        }
         stage('Docker Build') {
             steps {
                 bat "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
