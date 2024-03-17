@@ -10,7 +10,7 @@ pipeline {
     }
 
     stages {
-        stage('Check out') {n
+        stage('Check out') {
             steps {
                 git url: 'https://github.com/wingchijoe1997/comp367_lab2.git', branch: 'main'
             }
