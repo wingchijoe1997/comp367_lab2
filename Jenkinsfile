@@ -36,10 +36,10 @@ pipeline {
 
 		 stage('Docker Login') {
 		    steps {
-        withCredentials([string(credentialsId: 'DockerHubToken', variable: 'DOCKER_HUB_TOKEN')]) {
-            bat "echo %DOCKER_HUB_TOKEN% | docker login -u wingchijoe --password-stdin"
-        }
-    }
+		        script {
+		        	bat 'docker login -u wingchijoe -p ${DOCKER_CREDENTIALS_ID}'
+		        }
+    		}
 		}
         stage('Docker Push') {
             steps {
