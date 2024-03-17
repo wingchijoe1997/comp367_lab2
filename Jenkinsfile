@@ -34,13 +34,14 @@ pipeline {
             }
         }
 
-	    stage('Docker Push') {
+	    stage('Docker Login') {  
             steps {
-                script {
-                    docker.withRegistry('', 'DockerHubToken') {
-                        docker.image('wingchijoe/wingchi_lab3:2.0').push()
-                    }
-                }
+               bat "docker login -u wingchijoe -p ${DOCKER_CREDENTIALS_ID}"
+            }
+        }
+        stage('Docker Push') {  
+            steps {
+                bat "docker push wingchijoe/wingchi_lab3:2.0"
             }
         }
     }
