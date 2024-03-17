@@ -5,7 +5,7 @@ pipeline {
     }
     environment {
         DOCKER_IMAGE = 'wingchijoe/wingchi_lab3'
-        DOCKER_TAG = '2.0'
+        DOCKER_TAG = '3.0'
         DOCKER_CREDENTIALS_ID = credentials('DockerHubToken')
     }
 
@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Docker Push') {  
             steps {
-                bat "docker push wingchijoe/wingchi_lab3:2.0"
+                bat "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
             }
         }
     }
